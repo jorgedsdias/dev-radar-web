@@ -1,0 +1,3 @@
+// Componente: Bloco isolado de Html, Css e JS, o qual não interfere no restante da aplicação
+// Propriedade: Informações que um componente pai passa para o componente filho
+// Estado: Informações mantidas pelo componente (Lembrar: imutabilidade)
