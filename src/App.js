@@ -11,6 +11,7 @@ import DevItem from './components/DevItem';
 
 function App() {
   const [devs, setDevs] = useState([]);
+  const [currentDev, setCurrentDev] = useState('');
 
   useEffect(() => {
     async function loadDevs() {
@@ -22,22 +23,44 @@ function App() {
     loadDevs();
   }, []);
 
-  async function handleAddDev(data) {
-    const response = await api.post('/devs', data);
+  async function handleAddDev(id, data) {
+    if(!id) {
+      const response = await api.post('/devs', data);
+      setDevs([...devs, response.data]);
+    } else {
+      const response = await api.put(`/devs/${id}`, data);
+      setDevs(devs.map(dev => dev._id === id ? { ...response.data } : dev));
+    }
+  }
 
-    setDevs([...devs, response.data]);
+  async function removeDev(id) {
+    const response = await api.delete(`/devs/${id}`);
+
+    setDevs(devs.filter(dev => dev._id !== id));
+  }
+
+  function editDev(dev) {
+    setCurrentDev(dev);
   }
 
   return (
     <div id="app">
       <aside>
         <strong>Cadastrar</strong>
-        <DevForm onSubmit={handleAddDev} />
+        <DevForm 
+          onSubmit={handleAddDev}
+          currentDev={currentDev}
+        />
       </aside>
       <main>
         <ul>
           {devs.map(dev => (
-            <DevItem key={dev._id} dev={dev} />
+            <DevItem 
+              key={dev._id} 
+              dev={dev}
+              editDev={editDev}
+              removeDev={removeDev}
+            />
           ))}
         </ul>
       </main>
