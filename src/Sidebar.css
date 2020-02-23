@@ -32,6 +32,22 @@ aside form .input-group .input-block {
     margin-top: 0;
 }
 
+aside .get-location {
+    margin-top: 20px;
+}
+
+aside .get-location a {
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+aside .get-location a:hover, 
+aside .get-location a:visited,
+aside .get-location a:active {
+    color: #5a2ea6;
+}
+
 aside form .input-block label {
     color: #ACACAC;
     font-size: 14px;

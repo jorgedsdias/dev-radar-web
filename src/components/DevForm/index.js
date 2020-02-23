@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 
 function DevForm({ onSubmit, currentDev }) {
     const [id, setId] = useState('');
@@ -8,28 +10,13 @@ function DevForm({ onSubmit, currentDev }) {
     const [longitude, setLongitude] = useState('');
 
     useEffect(() => {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const { latitude, longitude } = position.coords;
-    
-            if(!currentDev) {
-                setLatitude(latitude);
-                setLongitude(longitude);
-            } else {
-                setId(currentDev._id);
-                setGithubUsername(currentDev.github_username);
-                setTechs(currentDev.techs.join(", "));
-                setLatitude(currentDev.location.coordinates[1]);
-                setLongitude(currentDev.location.coordinates[0]);
-            }
-          },
-          (err) => {
-            console.log(err);
-          },
-          {
-            timeout: 30000,
-          }
-        );
+        if(currentDev) {
+            setId(currentDev._id);
+            setGithubUsername(currentDev.github_username);
+            setTechs(currentDev.techs.join(", "));
+            setLatitude(currentDev.location.coordinates[1]);
+            setLongitude(currentDev.location.coordinates[0]);
+        }
     }, [currentDev]);
 
     async function handleSubmit(e) {
@@ -48,10 +35,26 @@ function DevForm({ onSubmit, currentDev }) {
         setTechs('');
     }
 
+    function getCurrentLocation() {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const { latitude, longitude } = position.coords;
+                setLatitude(latitude);
+                setLongitude(longitude);
+            },
+            (err) => {
+              console.log(err);
+            },
+            {
+              timeout: 30000,
+            }
+        );
+    }
+
     return (
         <form onSubmit={handleSubmit}>
             <div className="input-block">
-                <label htmlFor="github_username">Usuário do Github</label>
+                <label htmlFor="github_username">Github Username</label>
                 <input 
                     name="github_username" 
                     id="github_username" 
@@ -62,7 +65,7 @@ function DevForm({ onSubmit, currentDev }) {
             </div>
 
             <div className="input-block">
-                <label htmlFor="techs">Técnologias</label>
+                <label htmlFor="techs">Technologies</label>
                 <input 
                     name="techs" 
                     id="techs" 
@@ -72,33 +75,37 @@ function DevForm({ onSubmit, currentDev }) {
                 />
             </div>
 
+            <div className="get-location">
+                <a href="#" onClick={getCurrentLocation}><FontAwesomeIcon icon={faMapMarkerAlt} color="#8e4dff" /> - Get Current Location</a>
+            </div>
+
             <div className="input-group">
                 <div className="input-block">
-                <label htmlFor="latitude">Latitude</label>
-                <input 
-                    type="number" 
-                    name="latitude" 
-                    id="latitude" 
-                    required 
-                    value={latitude} 
-                    onChange={e => setLatitude(e.target.value)}
-                />
+                    <label htmlFor="latitude">Latitude</label>
+                    <input 
+                        type="number" 
+                        name="latitude" 
+                        id="latitude" 
+                        required 
+                        value={latitude} 
+                        onChange={e => setLatitude(e.target.value)}
+                    />
                 </div>
 
                 <div className="input-block">
-                <label htmlFor="longitude">Longitude</label>
-                <input 
-                    type="number" 
-                    name="longitude" 
-                    id="longitude" 
-                    required 
-                    value={longitude} 
-                    onChange={e => setLongitude(e.target.value)}
-                />
+                    <label htmlFor="longitude">Longitude</label>
+                    <input 
+                        type="number" 
+                        name="longitude" 
+                        id="longitude" 
+                        required 
+                        value={longitude} 
+                        onChange={e => setLongitude(e.target.value)}
+                    />
                 </div>
             </div>
 
-            <button type="submit">Salvar</button>
+            <button type="submit">Save</button>
         </form>
     )
 }
