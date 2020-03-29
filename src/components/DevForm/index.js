@@ -75,7 +75,7 @@ function DevForm({ onSubmit, currentDev }) {
             </div>
 
             <div className="get-location">
-                <a href="/#" onClick={getCurrentLocation}><FiMapPin color="#8e4dff" /> - Get Current Location</a>
+                <a href="javascript:;" onClick={getCurrentLocation}><FiMapPin color="#8e4dff" /> - Get Current Location</a>
             </div>
 
             <div className="input-group">

@@ -33,13 +33,13 @@ function App() {
     }
   }
 
-  async function removeDev(id) {
+  async function handleRemoveDev(id) {
     await api.delete(`/devs/${id}`);
 
     setDevs(devs.filter(dev => dev._id !== id));
   }
 
-  function editDev(dev) {
+  function handleEditDev(dev) {
     setCurrentDev(dev);
   }
 
@@ -58,8 +58,8 @@ function App() {
             <DevItem 
               key={dev._id} 
               dev={dev}
-              editDev={editDev}
-              removeDev={removeDev}
+              handleEditDev={handleEditDev}
+              handleRemoveDev={handleRemoveDev}
             />
           ))}
         </ul>
