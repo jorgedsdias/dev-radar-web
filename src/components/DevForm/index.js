@@ -32,6 +32,8 @@ function DevForm({ onSubmit, currentDev }) {
         setId('');
         setGithubUsername('');
         setTechs('');
+        setLatitude('');
+        setLongitude('');
     }
 
     function getCurrentLocation() {
