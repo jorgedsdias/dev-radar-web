@@ -3,6 +3,9 @@ li.dev-item {
     box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.02);
     border-radius: 2px;
     padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 li.dev-item header {
@@ -49,4 +52,10 @@ li.dev-item a {
 
 li.dev-item a:hover {
     color: #5a2ea6;
+}
+
+.user-actions button {
+    background: none;
+    border: 0;
+    padding-left: 5px;
 }

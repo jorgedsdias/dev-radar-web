@@ -34,7 +34,7 @@ function App() {
   }
 
   async function removeDev(id) {
-    const response = await api.delete(`/devs/${id}`);
+    await api.delete(`/devs/${id}`);
 
     setDevs(devs.filter(dev => dev._id !== id));
   }

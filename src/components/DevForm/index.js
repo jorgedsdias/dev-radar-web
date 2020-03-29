@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { FiMapPin } from 'react-icons/fi';
 
 function DevForm({ onSubmit, currentDev }) {
     const [id, setId] = useState('');
@@ -76,7 +75,7 @@ function DevForm({ onSubmit, currentDev }) {
             </div>
 
             <div className="get-location">
-                <a href="#" onClick={getCurrentLocation}><FontAwesomeIcon icon={faMapMarkerAlt} color="#8e4dff" /> - Get Current Location</a>
+                <a href="/#" onClick={getCurrentLocation}><FiMapPin color="#8e4dff" /> - Get Current Location</a>
             </div>
 
             <div className="input-group">
